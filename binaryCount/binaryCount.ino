@@ -1,6 +1,6 @@
 /*
   binary count
-  counts in abinary way with five leds.
+  counts in a binary way with five leds.
  
   This example code is in the public domain.
  */
