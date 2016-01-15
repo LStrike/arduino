@@ -89,11 +89,11 @@ void loop() {
       digitalWrite(led4, LOW);
       digitalWrite(led2, HIGH);
     } 
-    else if (count == 8) {
+    else if (count == 9) {
       digitalWrite(led3, LOW);
       digitalWrite(led1, HIGH);
     } 
-    else if (count == 9) {
+    else if (count == 10) {
       digitalWrite(led2, LOW);
       digitalWrite(led1, HIGH);
       count = -1;
