@@ -1,10 +1,10 @@
 /*
   Runninglight withoud delay with potentiomenter and serial output of the analog value (0 - 1023) and the corresponding voltage
-  Connect the potentiometer to 5V
-
-  This example code is in the public domain.
-  Based on http://www.arduino.cc/en/Tutorial/BlinkWithoutDelay
-*/
+ Connect the potentiometer to 5V
+ 
+ This example code is in the public domain.
+ Based on http://www.arduino.cc/en/Tutorial/BlinkWithoutDelay
+ */
 
 // Pin 13 has an LED connected on most Arduino boards.
 // give it a name:
@@ -14,7 +14,7 @@ int led3 = 11;
 int led4 = 10;
 int led5 = 9;
 //the delay
-int pause = 1000;
+int pause = 1500;
 //count to decide which LEDs are HIGH and which are LOW
 int count = 0;
 // will store last time LED was updated
@@ -59,42 +59,48 @@ void loop() {
       digitalWrite(led3, LOW);
       digitalWrite(led4, LOW);
       digitalWrite(led5, LOW);
-      count++;
-    } else if (count == 1)
+    } 
+    else if (count == 1){
       digitalWrite(led2, HIGH);
+    } 
+    else if (count == 2) {
+      digitalWrite(led1, LOW);
+      digitalWrite(led3, HIGH);
+    } 
+    else if (count == 3) {
+      digitalWrite(led2, LOW);
+      digitalWrite(led4, HIGH);
+    } 
+    else if (count == 4) {
+      digitalWrite(led3, LOW);
+      digitalWrite(led5, HIGH);
+    } 
+    else if (count == 5) {
+      digitalWrite(led4, LOW);
+    } 
+    else if (count == 6) {
+      digitalWrite(led4, HIGH);
+    } 
+    else if (count == 7) {
+      digitalWrite(led5, LOW);
+      digitalWrite(led3, HIGH);
+    } 
+    else if (count == 8) {
+      digitalWrite(led4, LOW);
+      digitalWrite(led2, HIGH);
+    } 
+    else if (count == 8) {
+      digitalWrite(led3, LOW);
+      digitalWrite(led1, HIGH);
+    } 
+    else if (count == 9) {
+      digitalWrite(led2, LOW);
+      digitalWrite(led1, HIGH);
+      count = -1;
+    }
     count++;
-  } else if (count == 2) {
-    digitalWrite(led1, LOW);
-    digitalWrite(led3, HIGH);
-    count++;
-  } else if (count == 3) {
-    digitalWrite(led2, LOW);
-    digitalWrite(led4, HIGH);
-    count++;
-  } else if (count == 4) {
-    digitalWrite(led3, LOW);
-    digitalWrite(led5, HIGH);
-    count++;
-  } else if (count == 5) {
-    digitalWrite(led4, LOW);
-    count++;
-  } else if (count == 6) {
-    digitalWrite(led4, HIGH);
-    count++;
-  } else if (count == 7) {
-    digitalWrite(led5, LOW);
-    digitalWrite(led3, HIGH);
-    count++;
-  } else if (count == 8) {
-    digitalWrite(led4, LOW);
-    digitalWrite(led2, HIGH);
-    count++;
-  } else if (count == 8) {
-    digitalWrite(led3, LOW);
-    digitalWrite(led1, HIGH);
-    count++;
-  } else if (count == 9) {
-    digitalWrite(led2, LOW);
-    count = 0;
   }
 }
+
+
+
