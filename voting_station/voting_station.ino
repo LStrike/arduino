@@ -187,14 +187,19 @@ void loop() {
       if (button1State == HIGH) {
         ledState = !ledState;
         button1Pressed = !button1Pressed;
-      } 
+      }
     }
     if (readingButton2 != button2State) {
       button2State = readingButton2;
       if (button2State == HIGH) {
         button2Pressed = !button2Pressed;
-        Serial.println("Status Button 1: " + button1State);
-      } 
+
+        if (button1Pressed) {
+          Serial.println("Status Button 1: ON");
+        } else {
+          Serial.println("Status Button 1: OFF");
+        }
+      }
     }
   }
 
