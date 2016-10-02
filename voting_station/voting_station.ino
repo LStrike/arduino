@@ -16,6 +16,15 @@
   All text above, and the splash screen must be included in any redistribution
 *********************************************************************/
 
+/*
+ * Thanks to Limor Fried / Ladyada for this example and for the library.
+ * Added code by LStrike / 2016-10-02
+ * Feel free to use this for your own purposes and have fun.
+ * 
+ * BSD license, check license.txt for more information
+ * All text above, and the splash screen must be included in any redistribution
+ */
+
 #include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
