@@ -66,6 +66,8 @@ boolean button2Pressed = false;
 boolean button3Pressed = false;
 boolean button4Pressed = false;
 
+String bic = "Powered by \nBIC Monitor";
+
 // the following variables are unsigned long's because the time, measured in miliseconds,
 // will quickly become a bigger number than can be stored in an int.
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
@@ -130,27 +132,6 @@ void setup()   {
   delay(2000);
   display.clearDisplay();
 
-
-  // draw scrolling text
-  // testscrolltext();
-  //delay(2000);
-  //display.clearDisplay();
-
-  //display.drawLine(0, 0, 128, 64, WHITE);
-  //display.drawLine(0, 64, 128, 0, WHITE);
-  //display.drawRect(10, 10, 108, 44, WHITE);
-  //display.setTextSize(1);
-  //display.setTextColor(WHITE);
-  //display.setCursor(50, 0);
-  //display.println("FNORD");
-  //display.setTextSize(1);
-  //display.setTextColor(WHITE);
-  //display.setCursor(50, 56);
-  //display.println("SNAFU");
-  //display.display();
-  //delay(9000);
-  //display.clearDisplay();
-
   // text display tests
   display.setTextSize(1);
   display.setTextColor(WHITE);
@@ -166,6 +147,8 @@ void setup()   {
   delay(2000);
   display.setTextColor(WHITE);
   display.println("Ready");
+  display.setTextSize(1);
+  display.println(bic);
   display.display();
   delay(2000);
   display.clearDisplay();
@@ -290,6 +273,9 @@ void loop() {
     display.println("Bitte gebe Deine");
     display.println("Stimme fuer ein");
     display.println("Team ab.");
+    display.println();
+    display.println();
+    display.println(bic);
   } else {
     display.println("BIC Monitor - S4M - NMM-ED");
   }
