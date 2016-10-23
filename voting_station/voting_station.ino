@@ -17,13 +17,13 @@
 *********************************************************************/
 
 /*
- * Thanks to Limor Fried / Ladyada for this example and for the library.
- * Added code by LStrike / 2016-10-02
- * Feel free to use this for your own purposes and have fun.
- * 
- * BSD license, check license.txt for more information
- * All text above, and the splash screen must be included in any redistribution
- */
+   Thanks to Limor Fried / Ladyada for this example and for the library.
+   Added code by LStrike / 2016-10-02
+   Feel free to use this for your own purposes and have fun.
+
+   BSD license, check license.txt for more information
+   All text above, and the splash screen must be included in any redistribution
+*/
 
 #include <SPI.h>
 #include <Wire.h>
@@ -40,19 +40,31 @@ Adafruit_SSD1306 display(OLED_RESET);
 
 // constants won't change. They're used here to
 // set pin numbers:
-const int button1Pin = 2;    // the number of the pushbutton pin
-const int button2Pin = 4;
+const int button1Pin = 2;    // the number of the pushbutton pin 1
+const int button2Pin = 4;    // the number of the pushbutton pin 2
+const int button3Pin = 7;    // the number of the pushbutton pin 3
+const int button4Pin = 8;    // the number of the pushbutton pin 4
 const int ledPin = 13;      // the number of the LED pin
 
 // Variables will change:
 int ledState = LOW;         // the current state of the output pin
+
 int button1State;             // the current reading from the input pin
 int lastButton1State = LOW;   // the previous reading from the input pin
+
 int button2State;
 int lastButton2State = LOW;
 
+int button3State;
+int lastButton3State = LOW;
+
+int button4State;
+int lastButton4State = LOW;
+
 boolean button1Pressed = false;
 boolean button2Pressed = false;
+boolean button3Pressed = false;
+boolean button4Pressed = false;
 
 // the following variables are unsigned long's because the time, measured in miliseconds,
 // will quickly become a bigger number than can be stored in an int.
@@ -124,20 +136,20 @@ void setup()   {
   //delay(2000);
   //display.clearDisplay();
 
-  display.drawLine(0, 0, 128, 64, WHITE);
-  display.drawLine(0, 64, 128, 0, WHITE);
-  display.drawRect(10, 10, 108, 44, WHITE);
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(50, 0);
-  display.println("FNORD");
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(50, 56);
-  display.println("SNAFU");
-  display.display();
-  delay(9000);
-  display.clearDisplay();
+  //display.drawLine(0, 0, 128, 64, WHITE);
+  //display.drawLine(0, 64, 128, 0, WHITE);
+  //display.drawRect(10, 10, 108, 44, WHITE);
+  //display.setTextSize(1);
+  //display.setTextColor(WHITE);
+  //display.setCursor(50, 0);
+  //display.println("FNORD");
+  //display.setTextSize(1);
+  //display.setTextColor(WHITE);
+  //display.setCursor(50, 56);
+  //display.println("SNAFU");
+  //display.display();
+  //delay(9000);
+  //display.clearDisplay();
 
   // text display tests
   display.setTextSize(1);
@@ -145,7 +157,7 @@ void setup()   {
   display.setCursor(0, 0);
   display.println("Initializing");
   display.setTextColor(BLACK, WHITE); // 'inverted' text
-  display.println("LStrike - Ver.: 0.0.2");
+  display.println("BIC - Ver.: 0.0.2");
   display.setTextSize(2);
   display.setTextColor(WHITE);
   display.print("0x"); display.println(0xDEADBEEF, HEX);
@@ -160,6 +172,8 @@ void setup()   {
 
   pinMode(button1Pin, INPUT);
   pinMode(button2Pin, INPUT);
+  pinMode(button3Pin, INPUT);
+  pinMode(button4Pin, INPUT);
   pinMode(ledPin, OUTPUT);
 
   // set initial LED state
@@ -172,13 +186,15 @@ void loop() {
   // read the state of the switch into a local variable:
   int reading = digitalRead(button1Pin);
   int readingButton2 = digitalRead(button2Pin);
+  int readingButton3 = digitalRead(button3Pin);
+  int readingButton4 = digitalRead(button4Pin);
 
   // check to see if you just pressed the button
   // (i.e. the input went from LOW to HIGH),  and you've waited
   // long enough since the last press to ignore any noise:
 
   // If the switch changed, due to noise or pressing:
-  if (reading != lastButton1State || readingButton2 != lastButton2State) {
+  if (reading != lastButton1State || readingButton2 != lastButton2State || readingButton3 != lastButton3State || readingButton4 != lastButton4State) {
     // reset the debouncing timer
     lastDebounceTime = millis();
   }
@@ -190,24 +206,64 @@ void loop() {
     // if the button state has changed:
     if (reading != button1State) {
       button1State = reading;
-
-
       // only toggle the LED if the new button state is HIGH
       if (button1State == HIGH) {
         ledState = !ledState;
         button1Pressed = !button1Pressed;
+        button2Pressed = false;
+        button3Pressed = false;
+        button4Pressed = false;
       }
     }
     if (readingButton2 != button2State) {
       button2State = readingButton2;
       if (button2State == HIGH) {
+        button1Pressed = false;
         button2Pressed = !button2Pressed;
+        button3Pressed = false;
+        button4Pressed = false;
+      }
+    }
+    if (readingButton3 != button3State) {
+      button3State = readingButton3;
+      if (button3State == HIGH) {
+        button1Pressed = false;
+        button2Pressed = false;
+        button3Pressed = !button3Pressed;
+        button4Pressed = false;
+      }
+    }
+
+    if (readingButton4 != button4State) {
+      button4State = readingButton4;
+      if (button4State == HIGH) {
+        button4Pressed = !button4Pressed;
+
+        display.clearDisplay();
 
         if (button1Pressed) {
-          Serial.println("Status Button 1: ON");
+          Serial.println("1");
+          display.println("Stimme fuer");
+          display.println("Team 1");
+          display.println("abgegeben");
+        } else if (button2Pressed) {
+          Serial.println("2");
+          display.println("Stimme fuer");
+          display.println("Team 2");
+          display.println("abgegeben");
+        } else if (button3Pressed) {
+          Serial.println("3");
+          display.println("Stimme fuer");
+          display.println("Team 3");
+          display.println("abgegeben");
         } else {
-          Serial.println("Status Button 1: OFF");
+          //Serial.println("Status Button 1: OFF");
         }
+
+        display.display();
+        delay(5000);
+        resetButtons();
+
       }
     }
   }
@@ -215,18 +271,27 @@ void loop() {
   // set the LED:
   digitalWrite(ledPin, ledState);
   display.clearDisplay();
-  if (button1Pressed && !button2Pressed) {
-    display.println("Button 1 ON");
-    display.println("Button 2 OFF");
-  } else if (!button1Pressed && button2Pressed) {
-    display.println("Button 1 OFF");
-    display.println("Button 2 ON");
-  } else if (button1Pressed && button2Pressed) {
-    display.println("Button 1 ON");
-    display.println("Button 2 ON");
+  if (button1Pressed && !button2Pressed && !button3Pressed) {
+    display.println("Team 1 gewaehlt.");
+    //display.println("Button 1 ON");
+    //display.println("Button 2 OFF");
+    //display.println("Button 3 OFF");
+  } else if (!button1Pressed && button2Pressed && !button3Pressed) {
+    display.println("Team 2 gewaehlt.");
+    //display.println("Button 1 OFF");
+    //display.println("Button 2 ON");
+    //display.println("Button 3 OFF");
+  } else if (!button1Pressed && !button2Pressed && button3Pressed) {
+    display.println("Team 3 gewaehlt.");
+    //display.println("Button 1 OFF");
+    //display.println("Button 2 OFF");
+    //display.println("Button 3 ON");
+  } else if (!button1Pressed && !button2Pressed && !button3Pressed) {
+    display.println("Bitte gebe Deine");
+    display.println("Stimme fuer ein");
+    display.println("Team ab.");
   } else {
-    display.println("Button 1 OFF");
-    display.println("Button 2 OFF");
+    display.println("BIC Monitor - S4M - NMM-ED");
   }
 
   display.setTextSize(1);
@@ -238,28 +303,20 @@ void loop() {
   // it'll be the lastButtonState:
   lastButton1State = reading;
   lastButton2State = readingButton2;
+  lastButton3State = readingButton3;
+  lastButton4State = readingButton4;
 }
 
-void testscrolltext(void) {
-  display.setTextSize(2);
-  display.setTextColor(WHITE);
-  display.setCursor(10, 0);
-  display.clearDisplay();
-  display.println("LStrike");
-  display.display();
-  delay(1);
+void resetButtons(void) {
 
-  display.startscrollright(0x00, 0x0F);
-  delay(2000);
-  display.stopscroll();
-  delay(1000);
-  display.startscrollleft(0x00, 0x0F);
-  delay(2000);
-  display.stopscroll();
-  delay(1000);
-  display.startscrolldiagright(0x00, 0x07);
-  delay(2000);
-  display.startscrolldiagleft(0x00, 0x07);
-  delay(2000);
-  display.stopscroll();
+  int lastButton1State = LOW;
+  int lastButton2State = LOW;
+  int lastButton3State = LOW;
+  int lastButton4State = LOW;
+
+  button1Pressed = false;
+  button2Pressed = false;
+  button3Pressed = false;
+  button4Pressed = false;
 }
+
