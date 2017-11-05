@@ -25,6 +25,7 @@
    All text above, and the splash screen must be included in any redistribution
 */
 
+#include <dht.h>
 #include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
@@ -37,6 +38,9 @@ Adafruit_SSD1306 display(OLED_RESET);
 #define XPOS 0
 #define YPOS 1
 #define DELTAY 2
+
+dht DHT;
+#define DHT11_PIN 7
 
 // constants won't change. They're used here to
 const int ledPin = 13;      // the number of the LED pin
@@ -136,7 +140,6 @@ void setup()   {
   display.println(name);
   display.display();
   delay(2000);
-  display.clearDisplay();
 
   //pin modes
   pinMode(buttonPin, INPUT);
@@ -144,6 +147,8 @@ void setup()   {
 
   // set initial LED state
   digitalWrite(ledPin, ledState);
+
+
 
 }
 
@@ -183,6 +188,18 @@ void loop() {
 
   // save the reading. Next time through the loop, it'll be the lastButtonState:
   lastButtonState = reading;
+
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 0);
+  int chk = DHT.read11(DHT11_PIN);
+  display.println("Temperature = ");
+  display.println(DHT.temperature);
+  display.println("Humidity = ");
+  display.println(DHT.humidity);
+  display.display();
+  delay(5000);
 
 }
 
