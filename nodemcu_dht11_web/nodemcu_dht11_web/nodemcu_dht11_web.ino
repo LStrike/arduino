@@ -14,8 +14,8 @@
 //#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
 
 // Replace with your network details
-const char* ssid = "FRITZ!Box 7490";
-const char* password = "45217519981271415136";
+const char* ssid = "***";
+const char* password = "***";
 
 // Web Server on port 80
 WiFiServer server(80);
