@@ -18,8 +18,8 @@ const int RED = 15;
 const int GREEN = 12;
 const int BLUE = 13;
 
-const char* ssid = "---";
-const char* password = "---";
+const char* ssid = "FRITZ!Box 7490";
+const char* password = "45217519981271415136";
 const char* host = "Witty";
 
 ESP8266WebServer server(80);
